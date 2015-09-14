@@ -15,13 +15,30 @@
     <h1>Project Aeolus App</h1>
     <div class="prospect" ng-repeat="prospect in prospectlist">
       <h2>{{prospect.firstname}} {{prospect.lastname}}</h2>
+      <button class="btn btn-warning" ng-click="edit(prospect._id)">Edit</button>
       <div class="prospectContact">
         <h2>Contact Details</h2>
+
         <div>Mobile: {{prospect.mobile}}</div>
         <div>Secondary Phone: </div>
         <div>Email: {{prospect.email}}</div>
         <div>Address: {{prospect.streetaddress}}, {{prospect.city}} {{prospect.postalcode}}, United Kingdom</div>
         <div>Qualify: {{prospect.qualify}}</div>
+      </div>
+      <div class="prospectform">
+        <h2>Edit Prospect</h2>
+        <div><input class="form-control" ng-model="prospect.firstname" placeholder="first name"></div>
+        <div><input class="form-control" ng-model="prospect.lastname" placeholder="last name"></div>
+        <div><input class="form-control" ng-model="prospect.mobile" placeholder="mobile"></div>
+        <div><input class="form-control" ng-model="prospect.email" placeholder="email"></div>
+        <div><input class="form-control" ng-model="prospect.streetaddress" placeholder="street address"></div>
+        <div><input class="form-control" ng-model="prospect.city" placeholder="city"></div>
+        <div><input class="form-control" ng-model="prospect.postalcode" placeholder="postal code"></div>
+        <div><input class="form-control" ng-model="prospect.qualify" placeholder="qualify score"></div>
+        <button class="btn btn-success" ng-click="update(prospect._id)"> Update Prospect</button>
+        <button class="btn btn-info" ng-click="cancel()"> Cancel</button>
+        <button class="btn btn-danger" ng-click="remove(prospect._id)">Remove</button>
+
       </div>
       <div class="prospectTouchPoints">
         <h2>Touch Points</h2>
@@ -35,6 +52,18 @@
         <div>Follow Up Date and Time: </div>
         <div>Misc Notes: </div>
       </div>
+    </div>
+    <div class="prospectform">
+      <h2>New Prospect</h2>
+      <div><input class="form-control" ng-model="prospect.firstname" placeholder="first name"></div>
+      <div><input class="form-control" ng-model="prospect.lastname" placeholder="last name"></div>
+      <div><input class="form-control" ng-model="prospect.mobile" placeholder="mobile"></div>
+      <div><input class="form-control" ng-model="prospect.email" placeholder="email"></div>
+      <div><input class="form-control" ng-model="prospect.streetaddress" placeholder="street address"></div>
+      <div><input class="form-control" ng-model="prospect.city" placeholder="city"></div>
+      <div><input class="form-control" ng-model="prospect.postalcode" placeholder="postal code"></div>
+      <div><input class="form-control" ng-model="prospect.qualify" placeholder="qualify score"></div>
+      <button class="btn btn-primary" ng-click="addProspect()"> Add Prospect</button>
     </div>
   </div>
 
