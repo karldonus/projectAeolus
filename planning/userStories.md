@@ -1,4 +1,4 @@
-Backstory: My client -- a Shanghai-based British-Pakistani solar exporter -- came to me looking for a web app to help him break into the residential wind turbine market. Through conducting several online design studios, it became clear that his sales team's conversion rate depended heavily on the relative weather conditions affecting a sales prospect. We settled on developing a sales-centric web app that would better identify leads experiencing atypical windspeeds for their locality.
+Backstory: My client -- a Shanghai-based British-Pakistani solar exporter -- came to me looking for a CRM to help him break into the residential wind turbine market. Through conducting several online design studios, it became clear that his sales team's conversion rate depended heavily on the relative weather conditions affecting a sales prospect. We settled on developing a sales-centric web app that would better identify leads experiencing atypical windspeeds for their locality.
 
 User Stories
 
