@@ -27,21 +27,28 @@ $scope.remove = function(id) {
   });
 };
 
-// $scope.update = function() {
-//   console.log($scope.prospect._id);
-// };
-
-// $scope.edit = function(id) {
-//   console.log(id);
-//   $http.get('/prospectlist/' + id).success(function(response){
-//     $scope.prospect = response;
-//   });
-// };
-
-$scope.update = function(id){
+$scope.edit = function(id) {
   console.log(id);
-  $http.put('/prospectlist/' + id);
+  $http.get('/prospectlist/' + id).success(function(response){
+    $scope.prospect = response;
+  });
 };
 
+$scope.update = function(){
+  console.log($scope.prospect._id);
+  $http.put('/prospectlist/' + $scope.prospect._id, $scope.prospect).success(function(response){
+    refresh();
+  });
+};
+
+$scope.deselect = function() {
+  $scope.prospect = "";
+};
+
+$scope.newText = false;
+
+$scope.$watch('newToggle', function(){
+  $scope.newText = $scope.newToggle ? 'Cancel' : 'New Prospect';
+});
 
 }]);

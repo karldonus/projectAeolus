@@ -3,67 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <title>Aeolus</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="./styles.css">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+  <link href='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css' rel='stylesheet' />
   <script type="text/javascript" src="controllers/controller.js"></script>
+  <script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>
+  <script src='controllers/map.js'></script>
 
 </head>
 <body>
   <div class="container" ng-controller="AppCtrl">
+
     <h1>Project Aeolus App</h1>
-    <div class="prospect" ng-repeat="prospect in prospectlist">
-      <h2>{{prospect.firstname}} {{prospect.lastname}}</h2>
-      <button class="btn btn-warning" ng-click="edit(prospect._id)">Edit</button>
-      <div class="prospectContact">
-        <h2>Contact Details</h2>
+    <div class="row">
+      <div class="col-md-8" id="map"></div>
+      <div class="prospectContainer col-md-4">
+        <h2>Prospects</h2><button class="btn btn-primary" ng-click="newToggle = !newToggle">{{newText}}</button>
+        <div class="prospectform" id="entryform" ng-show="newToggle">
+          <h2>New Prospect</h2>
+          <div><input class="form-control" ng-model="prospect.firstname" placeholder="first name"></div>
+          <div><input class="form-control" ng-model="prospect.lastname" placeholder="last name"></div>
+          <div><input class="form-control" ng-model="prospect.mobile" placeholder="mobile"></div>
+          <div><input class="form-control" ng-model="prospect.email" placeholder="email"></div>
+          <div><input class="form-control" ng-model="prospect.streetaddress" placeholder="street address"></div>
+          <div><input class="form-control" ng-model="prospect.city" placeholder="city"></div>
+          <div><input class="form-control" ng-model="prospect.postalcode" placeholder="postal code"></div>
+          <div><input class="form-control" ng-model="prospect.qualify" placeholder="qualify score"></div>
+          <div><textarea class="form-control" rows="6" ng-model="prospect.notes" placeholder="notes"></textarea></div>
+          <button class="btn btn-primary" ng-click="addProspect()"> Add Prospect</button>
+          <button class="btn btn-info" ng-click="update()"> Update</button>
+          <button class="btn btn-success" ng-click="deselect()"> Cancel</button>
+        </div>
 
-        <div>Mobile: {{prospect.mobile}}</div>
-        <div>Secondary Phone: </div>
-        <div>Email: {{prospect.email}}</div>
-        <div>Address: {{prospect.streetaddress}}, {{prospect.city}} {{prospect.postalcode}}, United Kingdom</div>
-        <div>Qualify: {{prospect.qualify}}</div>
-      </div>
-      <div class="prospectform">
-        <h2>Edit Prospect</h2>
-        <div><input class="form-control" ng-model="prospect.firstname" placeholder="first name"></div>
-        <div><input class="form-control" ng-model="prospect.lastname" placeholder="last name"></div>
-        <div><input class="form-control" ng-model="prospect.mobile" placeholder="mobile"></div>
-        <div><input class="form-control" ng-model="prospect.email" placeholder="email"></div>
-        <div><input class="form-control" ng-model="prospect.streetaddress" placeholder="street address"></div>
-        <div><input class="form-control" ng-model="prospect.city" placeholder="city"></div>
-        <div><input class="form-control" ng-model="prospect.postalcode" placeholder="postal code"></div>
-        <div><input class="form-control" ng-model="prospect.qualify" placeholder="qualify score"></div>
-        <button class="btn btn-success" ng-click="update(prospect._id)"> Update Prospect</button>
-        <button class="btn btn-info" ng-click="cancel()"> Cancel</button>
-        <button class="btn btn-danger" ng-click="remove(prospect._id)">Remove</button>
+        <div class="prospect" ng-repeat="prospect in prospectlist">
+          <h2>{{prospect.firstname}} {{prospect.lastname}}</h2>
+          <a class="btn btn-warning" href='#entryform' ng-click="edit(prospect._id)">Edit</a>
+          <a class="btn btn-danger" href='#entryform' ng-click="remove(prospect._id)">Remove</a>
+          <div class="prospectContact">
+            <h2>Contact Details</h2>
 
+            <div>Mobile: {{prospect.mobile}}</div>
+            <div>Secondary Phone: </div>
+            <div>Email: {{prospect.email}}</div>
+            <div>Address: {{prospect.streetaddress}}, {{prospect.city}} {{prospect.postalcode}}, United Kingdom</div>
+            <div>Qualify: {{prospect.qualify}}</div>
+          </div>
+          <div class="prospectTouchPoints">
+            <h2>Touch Point Notes</h2>
+            <div class="notesSection">{{prospect.notes}}</div>
+            <!-- <div>Sales Rep: </div>
+            <div>Date and Time Contacted: </div>
+            <div>Initiated By: </div>
+            <div>Connected: </div>
+            <div>Pain Points: </div>
+            <div>Objections: </div>
+            <div>Follow Up Action:</div>
+            <div>Follow Up Date and Time: </div>
+            <div>Misc Notes: </div> -->
+          </div>
+        </div>
       </div>
-      <div class="prospectTouchPoints">
-        <h2>Touch Points</h2>
-        <div>Sales Rep: </div>
-        <div>Date and Time Contacted: </div>
-        <div>Initiated By: </div>
-        <div>Connected: </div>
-        <div>Pain Points: </div>
-        <div>Objections: </div>
-        <div>Follow Up Action:</div>
-        <div>Follow Up Date and Time: </div>
-        <div>Misc Notes: </div>
-      </div>
-    </div>
-    <div class="prospectform">
-      <h2>New Prospect</h2>
-      <div><input class="form-control" ng-model="prospect.firstname" placeholder="first name"></div>
-      <div><input class="form-control" ng-model="prospect.lastname" placeholder="last name"></div>
-      <div><input class="form-control" ng-model="prospect.mobile" placeholder="mobile"></div>
-      <div><input class="form-control" ng-model="prospect.email" placeholder="email"></div>
-      <div><input class="form-control" ng-model="prospect.streetaddress" placeholder="street address"></div>
-      <div><input class="form-control" ng-model="prospect.city" placeholder="city"></div>
-      <div><input class="form-control" ng-model="prospect.postalcode" placeholder="postal code"></div>
-      <div><input class="form-control" ng-model="prospect.qualify" placeholder="qualify score"></div>
-      <button class="btn btn-primary" ng-click="addProspect()"> Add Prospect</button>
     </div>
   </div>
 

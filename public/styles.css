@@ -1,8 +1,21 @@
 div {
   border: solid 2px red;
-  margin: 1em;
+  padding: 1em;
 }
 
 .prospect {
   background-color: yellow;
+}
+
+.prospectContainer {
+  max-height: 90vh;
+  overflow: scroll;
+}
+
+.notesSection {
+  min-height: 50px;
+}
+
+#map {
+  height: 90vh;
 }

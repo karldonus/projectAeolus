@@ -1,11 +1,12 @@
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var path = require('path');
 var mongojs = require('mongojs');
 var db = mongojs('prospectlist', ['prospectlist']);
-app.use(express.static(__dirname + "/public"));
+var bodyParser = require('body-parser');
+
+app.use(express.static(__dirname + "/public/"));
 app.use(bodyParser.json());
 
 app.get('/prospectlist', function (req, res){
@@ -40,34 +41,25 @@ app.get('/prospectlist/:id', function(req, res){
   });
 });
 
-app.put('prospectlist/:id', function (req, res) {
+app.put('/prospectlist/:id', function (req, res){
   var id = req.params.id;
   console.log(req.body.firstname);
+  db.prospectlist.findAndModify({query: {_id: mongojs.ObjectId(id)},
+    update: {$set: {
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      mobile: req.body.mobile,
+      streetaddress: req.body.steetaddress,
+      city: req.body.city,
+      postalcode: req.body.postalcode,
+      email: req.body.email,
+      qualify: req.body.qualify,
+      notes: req.body.notes
+    }},
+    new: true}, function (err, doc) {
+      res.json(doc);
+    });
 });
-
-  // prospect1 = {
-  //   firstname: 'Tony',
-  //   lastname: 'Blair',
-  //   mobile:'44 20 7925 0918',
-  //   streetaddress:'10 Downing St',
-  //   city: 'London',
-  //   postalcode: 'SW1A 2AA',
-  //   email: 'tonyblair@uk.gov',
-  //   qualify: 'Hot'
-  // };
-  // prospect2 = {
-  //   firstname: 'Sherlock',
-  //   lastname: 'Holmes',
-  //   mobile: '55 21 3245 0113',
-  //   streetaddress: '221b Baker Street',
-  //   city: 'London',
-  //   email: 'sherlock@detective.co.uk',
-  //   qualify: 'Cold'
-  // };
-  //
-  // var prospectlist = [prospect1, prospect2];
-  // res.json(prospectlist);
-
 
 app.set('port', (process.env.PORT || 4444));
 
